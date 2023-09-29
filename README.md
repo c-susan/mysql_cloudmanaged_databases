@@ -8,7 +8,7 @@ This repo focuses on MySQL along with implementation on cloud services, Google C
 + A folder named **gcp** also containing SQL script for table creation and screenshpts of thet action output, entity relationship diagram (ERD), and tables in the database.
 + A **README.md** file containing an overview of the repo.
 
-### Azure Setuo
+### Azure Setup
 + Azure Database for MySQL
 + Deployment option: Flexible,
 + Tier: Burstable

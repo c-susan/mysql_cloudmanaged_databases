@@ -9,7 +9,11 @@ This repo focuses on MySQL along with implementation on cloud services, Google C
 + A **README.md** file containing an overview of the repo.
 
 ## Azure Setup
-
++ Azure Database for MySQL
++ Deployment option: Flexible,
++ Tier: Burstable
++ Compute: B1S [$6.21 p/month]
 
 ## Google Cloud Platform (GCP) Setup
-
++ Cloud SQL edition: Enterprise
++ Machine Configuration: Shared core; 1vCPU, 0.614 GB

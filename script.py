@@ -1,6 +1,6 @@
 import os
 from dotenv import load_dotenv
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, inspect
 from faker import Faker
 import numpy as np
 
@@ -12,17 +12,19 @@ DB_HOST = os.getenv("DB_HOST")
 DB_DATABASE = os.getenv("DB_DATABASE")
 DB_USERNAME = os.getenv("DB_USERNAME")
 DB_PASSWORD = os.getenv("DB_PASSWORD")
-DB_PORT = int(os.getenv("DB_PORT", 3306))
-DB_CHARSET = os.getenv("DB_CHARSET", "utf8mb4")
+#DB_PORT = int(os.getenv("DB_PORT", 3306))
+#DB_CHARSET = os.getenv("DB_CHARSET", "utf8mb4")
 
 # Connection string
-conn_string = (
-    f"mysql+pymysql://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_DATABASE}"
-    f"?charset={DB_CHARSET}"
-)
+connect_args={'ssl':{'fake_flag_to_enable_tls': True}}
+connection_string = f'mysql+pymysql://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}/{DB_DATABASE}'
+engine = create_engine(
+        connection_string,
+        connect_args=connect_args)
+
 
 # Create a database engine
-db_engine = create_engine(conn_string, echo=False)
+# db_engine = create_engine(conn_string, echo=False)
 fake = Faker()
 
 departments = ['Pediatric', 'Orthopedics', 'Neurology', 'Cardiology', 'Oncology']
@@ -83,5 +85,5 @@ def insert_fake_data(engine, num_patients=100, num_providers=20, num_medications
 
 
 if __name__ == "__main__":
-    insert_fake_data(db_engine)
+    insert_fake_data(engine)
     print("Fake data insertion complete!")

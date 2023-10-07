@@ -135,7 +135,7 @@ engine = create_engine(
         connect_args=connect_args)
 ```
 
-The python script was able to make a connection the the MySQL instance however returned the following error: 
++ The python script was able to make a connection the the MySQL instance however returned the following error: 
 ```
 Traceback (most recent call last):
   File "/home/susan_chen/.local/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1408, in execute
@@ -153,3 +153,9 @@ Traceback (most recent call last):
     raise exc.ObjectNotExecutableError(statement) from err
 sqlalchemy.exc.ObjectNotExecutableError: Not an executable object: "\n                INSERT INTO patients (first_name, last_name,\n                                date_of_birth, gender, address, phone_number)\n                VALUES ('Jennifer', 'Wright', '1957-11-13', 'F',\n                '5606 Lopez Island Apt. 376, North James, TN 19628', '248.386.9259x108') \n            "
 ```
+
+To address this error, several changes were made. 
++ The ```text``` function was imported from sqlalchemy.
++ Defined SQL queries for each of the tables as a **'text'** object and executed using connection.execute(sql_query). 
+
+**The python file was successfully ran with ```Fake data insertion complete!``` being printed in the terminal. However, the tables in MySQL shows NULL values/data was not inserted. **

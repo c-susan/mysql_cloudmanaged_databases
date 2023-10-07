@@ -158,4 +158,4 @@ To address this error, several changes were made.
 + The ```text``` function was imported from sqlalchemy.
 + Defined SQL queries for each of the tables as a **'text'** object and executed using connection.execute(sql_query). 
 
-**The python file was successfully ran with ```Fake data insertion complete!``` being printed in the terminal. However, the tables in MySQL shows NULL values/data was not inserted. **
+**The python file was successfully ran with ```Fake data insertion complete!``` being printed in the terminal. However, the tables in MySQL shows NULL values/data was not inserted.**

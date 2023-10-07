@@ -19,7 +19,7 @@ This repo focuses on MySQL along with implementation on cloud services, Google C
 + Machine Configuration: Shared core; 1vCPU, 0.614 GB
 
 ### Python Script for Database Interaction
-The **azure** file contains a python file for database interaction with MySQL workbench. The the .env and .gitignore files were configured correctly according to the database host, name, username, and password. However, the following error message was shown (more work will done to address the error): 
+1. The **azure** file contains a python file for database interaction with MySQL workbench. The the .env and .gitignore files were configured correctly according to the database host, name, username, and password. However, the following error message was shown: 
 ```
 Python-dotenv could not parse statement starting at line 1
 Python-dotenv could not parse statement starting at line 2
@@ -125,3 +125,37 @@ Traceback (most recent call last):
 sqlalchemy.exc.OperationalError: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on 'None' ([Errno -2] Name or service not known)")
 (Background on this error at: https://sqlalche.me/e/20/e3q8)
 ```
+
+2. To address this error, the ```.env``` file containing the database credentials was edited. In addition, the connection string was also changed to:
+```
+connect_args={'ssl':{'fake_flag_to_enable_tls': True}}
+connection_string = f'mysql+pymysql://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}/{DB_DATABASE}'
+engine = create_engine(
+        connection_string,
+        connect_args=connect_args)
+```
+
++ The python script was able to make a connection the the MySQL instance however returned the following error: 
+```
+Traceback (most recent call last):
+  File "/home/susan_chen/.local/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1408, in execute
+    meth = statement._execute_on_connection
+AttributeError: 'str' object has no attribute '_execute_on_connection'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/susan_chen/mysql_cloudmanaged_databases/script.py", line 88, in <module>
+    insert_fake_data(engine)
+  File "/home/susan_chen/mysql_cloudmanaged_databases/script.py", line 44, in insert_fake_data
+    connection.execute(f"""
+  File "/home/susan_chen/.local/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1410, in execute
+    raise exc.ObjectNotExecutableError(statement) from err
+sqlalchemy.exc.ObjectNotExecutableError: Not an executable object: "\n                INSERT INTO patients (first_name, last_name,\n                                date_of_birth, gender, address, phone_number)\n                VALUES ('Jennifer', 'Wright', '1957-11-13', 'F',\n                '5606 Lopez Island Apt. 376, North James, TN 19628', '248.386.9259x108') \n            "
+```
+
+To address this error, several changes were made. 
++ The ```text``` function was imported from sqlalchemy.
++ Defined SQL queries for each of the tables as a **'text'** object and executed using connection.execute(sql_query). 
+
+**The python file was successfully ran with ```Fake data insertion complete!``` being printed in the terminal. However, the tables in MySQL shows NULL values/data was not inserted. **

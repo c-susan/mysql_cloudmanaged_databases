@@ -19,7 +19,7 @@ This repo focuses on MySQL along with implementation on cloud services, Google C
 + Machine Configuration: Shared core; 1vCPU, 0.614 GB
 
 ### Python Script for Database Interaction
-1. The **azure** file contains a python file for database interaction with MySQL workbench. The the .env and .gitignore files were configured correctly according to the database host, name, username, and password. However, the following error message was shown: 
+**1.** The **azure** file contains a python file for database interaction with MySQL workbench. The the .env and .gitignore files were configured correctly according to the database host, name, username, and password. However, the following error message was shown: 
 ```
 Python-dotenv could not parse statement starting at line 1
 Python-dotenv could not parse statement starting at line 2
@@ -125,8 +125,9 @@ Traceback (most recent call last):
 sqlalchemy.exc.OperationalError: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on 'None' ([Errno -2] Name or service not known)")
 (Background on this error at: https://sqlalche.me/e/20/e3q8)
 ```
+<br>
 
-2. To address this error, the ```.env``` file containing the database credentials was edited. In addition, the connection string was also changed to:
+**2.** To address this error, the ```.env``` file containing the database credentials was edited. In addition, the connection string was also changed to:
 ```
 connect_args={'ssl':{'fake_flag_to_enable_tls': True}}
 connection_string = f'mysql+pymysql://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}/{DB_DATABASE}'

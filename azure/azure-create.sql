@@ -32,3 +32,5 @@ CREATE TABLE prescriptions (
     FOREIGN KEY (patient_id) REFERENCES patients(patient_id),
     FOREIGN KEY (provider_id) REFERENCES providers(provider_id)
 );
+
+

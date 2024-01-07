@@ -116,4 +116,4 @@ def insert_fake_data(engine, num_patients=100, num_providers=20, num_medications
 
 if __name__ == "__main__":
     insert_fake_data(engine)
-        print("Fake data insertion complete!")
+    print("Fake data insertion complete!")
